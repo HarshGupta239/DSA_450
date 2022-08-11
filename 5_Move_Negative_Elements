@@ -1,0 +1,52 @@
+# Method 1  (TC: o(n))
+
+
+# include<iostream>
+using namespace std;
+#include <bits/stdc++.h>
+int main()
+{
+
+    int a[20],i,n,j=0;
+    cin>>n;
+    for(i=0;i<n;i++)
+        cin>>a[i];
+        i=0;
+    while(i<n)
+    {
+        if(a[i]>=0)
+        {
+            swap(a[i],a[j]);
+            i++;
+            j++;
+
+        }
+        else
+            i++;
+    }
+    for(i=0;i<n;i++)
+        cout<<a[i]<<" ";
+
+}
+
+
+# Method 2:   (TC: o(nlogn))
+
+
+# include<iostream>
+using namespace std;
+#include <bits/stdc++.h>
+int main()
+{
+
+    int a[20],i,n,j=0;
+    cin>>n;
+    for(i=0;i<n;i++)
+        cin>>a[i];
+    sort(a,a+n);
+    cout<<endl;
+    for(i=0;i<n;i++)
+        cout<<a[i]<<" ";
+
+}
+
