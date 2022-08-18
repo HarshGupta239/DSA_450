@@ -1,0 +1,27 @@
+# Method 1:  TC: o(nlogn), SC: o(n)
+
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        sort(intervals.begin(),intervals.end());
+     vector<vector<int>> merge;
+        vector<int> single = intervals[0];
+        if(intervals.size()==0)
+            return merge;
+        for(auto it : intervals)
+        {
+            if(single[1]>= it[0])
+                single[1]=max(single[1],it[1]);
+            else
+            {
+                merge.push_back(single);
+                single[0]=it[0];
+                single[1]=it[1];
+            }   
+        }
+        
+        merge.push_back(single);
+        return merge;
+    }
+};
