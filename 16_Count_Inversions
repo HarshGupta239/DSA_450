@@ -1,0 +1,147 @@
+# Method 1:  TC:o(N^2), sc:o(1)
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution{
+  public:
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    // Function to count inversions in the array.
+    long long int inversionCount(long long arr[], long long N)
+    {
+        long long int i,c=0,j;
+        for(i=0;i<N-1;i++)
+        {
+            for(j=i+1;j<N;j++)
+            {
+                if(arr[i]>arr[j])
+                c++;
+            }
+        }
+        return c;
+    }
+
+};
+
+int main() {
+    
+    long long T;
+    cin >> T;
+    
+    while(T--){
+        long long N;
+        cin >> N;
+        
+        long long A[N];
+        for(long long i = 0;i<N;i++){
+            cin >> A[i];
+        }
+        Solution obj;
+        cout << obj.inversionCount(A,N) << endl;
+    }
+    
+    return 0;
+}
+
+
+
+# Method 2:  TC:o(nlogn), SC:o(n)
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution{
+  public:
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    // Function to count inversions in the array
+    long long int count = 0;
+    long long int inversionCount(long long arr[], long long N)
+    {
+        //int count=0;
+        mergesort(arr,0,N-1);
+        return count;
+    }
+   void mergesort(long long int arr[], long long int low, long long int high)
+    {
+        if(low<high){
+        long long int mid;
+        mid=(low+high)/2;
+        mergesort(arr,low,mid);
+        mergesort(arr,mid+1,high);
+        merge(arr,low,mid,high);
+        }
+    }
+   void merge(long long int arr[], long long int low, long long int mid, long long int high)
+    {
+        long long int extra[high];
+        long long int i,j,l=0;
+        i=low;
+        j=mid+1;
+        while(i<=mid && j<=high)
+        {
+            if(arr[i]<=arr[j])
+            {
+                extra[l]=arr[i];
+                i++;
+                l++;
+            }
+            else
+            {
+                count=count+(mid-i+1);
+                extra[l]=arr[j];
+                j++;
+                l++;
+            }
+        }
+        if(i>mid)
+        {
+          while(j<=high)
+          {
+              extra[l]=arr[j];
+              l++;
+              j++;
+          }
+        }
+        else
+        {
+            while(i<=mid)
+          {
+              extra[l]=arr[i];
+              l++;
+              i++;
+          }
+            
+        }
+        i=low;
+        for(long long int j =0;j<l;j++)
+        {
+            arr[i]=extra[j];
+            i++;
+        } 
+    }
+    
+};
+
+int main() {
+    
+    long long T;
+    cin >> T;
+    
+    while(T--){
+        long long N;
+        cin >> N;
+        
+        long long A[N];
+        for(long long i = 0;i<N;i++){
+            cin >> A[i];
+        }
+        Solution obj;
+        cout << obj.inversionCount(A,N) << endl;
+    }
+    
+    return 0;
+}
