@@ -1,0 +1,127 @@
+# Method 1:
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution
+{
+    public:    
+       vector <int> commonElements (int A[], int B[], int C[], int n1, int n2, int n3)
+        {
+            unordered_map<int,int> map;
+            int i;
+            vector<int> t;
+            for(i=0;i<n1;i++)
+            {
+                if(map[A[i]]==0)
+                map[A[i]]++;
+            }
+            for(i=0;i<n2;i++)
+            {
+                if(map[B[i]]==1)
+                map[B[i]]++;
+            }
+            for(i=0;i<n3;i++)
+            {
+                if(map[C[i]]==2)
+                map[C[i]]++;
+            }
+            for(auto it : map)
+            {
+                if(it.second==3)
+                t.push_back(it.first);
+            }
+            sort(t.begin(),t.end());
+            return t;
+        }
+
+};
+
+int main ()
+{
+    int t; cin >> t;
+    while (t--)
+    {
+        int n1, n2, n3; 
+        cin >> n1 >> n2 >> n3;
+        int A[n1];
+        int B[n2];
+        int C[n3];
+        
+        for (int i = 0; i < n1; i++) cin >> A[i];
+        for (int i = 0; i < n2; i++) cin >> B[i];
+        for (int i = 0; i < n3; i++) cin >> C[i];
+        
+        Solution ob;
+        
+        vector <int> res = ob.commonElements (A, B, C, n1, n2, n3);
+        if (res.size () == 0) 
+            cout << -1;
+        for (int i = 0; i < res.size (); i++) 
+            cout << res[i] << " "; 
+        cout << endl;
+    }
+}
+
+
+
+# Method 2: Efficient than first one. Because (No use of maps and no o(nlogn) time complexity)
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution
+{
+    public:    
+       vector <int> commonElements (int A[], int B[], int C[], int n1, int n2, int n3)
+        {
+           int i = 0, j = 0, k = 0;
+            
+            vector <int> res;
+            int last = INT_MIN;
+            while (i < n1 and j < n2 and k < n3)
+            {
+                if (A[i] == B[j] and A[i] == C[k] and A[i] != last) 
+                {
+                    res.push_back (A[i]);
+                    last = A[i];
+                    i++;
+                    j++;
+                    k++;
+                }
+                else if (min ({A[i], B[j], C[k]}) == A[i]) i++;
+                else if (min ({A[i], B[j], C[k]}) == B[j]) j++;
+                else k++;
+            }
+            return res;
+        }
+
+};
+
+int main ()
+{
+    int t; cin >> t;
+    while (t--)
+    {
+        int n1, n2, n3; 
+        cin >> n1 >> n2 >> n3;
+        int A[n1];
+        int B[n2];
+        int C[n3];
+        
+        for (int i = 0; i < n1; i++) cin >> A[i];
+        for (int i = 0; i < n2; i++) cin >> B[i];
+        for (int i = 0; i < n3; i++) cin >> C[i];
+        
+        Solution ob;
+        
+        vector <int> res = ob.commonElements (A, B, C, n1, n2, n3);
+        if (res.size () == 0) 
+            cout << -1;
+        for (int i = 0; i < res.size (); i++) 
+            cout << res[i] << " "; 
+        cout << endl;
+    }
+}
