@@ -1,0 +1,37 @@
+# Method 1:  TC: o(n), SC: o(n)
+
+
+# include<iostream>
+#include <unordered_map>
+using namespace std;
+
+int main()
+{
+    int n,k,i,t,arr[100],c=0,k1;
+    unordered_map <int,int> s;
+    cout<<"Enter the value of n: ";
+    cin>>n;
+    cout<<"Enter the value of k: ";
+    cin>>k;
+    t=n/k;
+    cout<<"Enter the array values:";
+    for(i=0;i<n;i++)
+    cin>>arr[i];
+    for(i=0;i<n;i++)
+    s[arr[i]]++;
+    i=0;
+    for(auto it : s)
+    {
+        if(it.second>t)
+        {
+        c++;
+        arr[i]=it.first;
+        i++;
+        }
+    }
+    cout<<"Array values have count more tha n/k: ";
+    for(k1=0;k1<i;k1++)
+    cout<<arr[k1]<<" ";
+    cout<<endl;
+    cout<<"Count of values: "<<c;
+}
