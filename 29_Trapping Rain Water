@@ -1,0 +1,119 @@
+# Method 1: TC:o(n), SC:o(n)
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution{
+
+    // Function to find the trapped water between the blocks.
+    public:
+    long long trappingWater(int arr[], int n){
+        long long int s=0;
+        int i;
+        int l[n],r[n];
+        l[0]=arr[0],r[n-1]=arr[n-1];
+        for(i=1;i<n;i++)
+        l[i]=max(l[i-1],arr[i]);
+        for(i=n-2;i>=0;i--)
+        r[i]=max(r[i+1],arr[i]);
+        
+        for(i=0;i<n;i++)
+        {
+            if((min(l[i],r[i])-arr[i])<0)
+            continue;
+           s=s+(min(l[i],r[i])-arr[i]);
+        }
+        return s;
+    }
+};
+
+int main(){
+    
+    int t;
+    //testcases
+    cin >> t;
+    
+    while(t--){
+        int n;
+        
+        //size of array
+        cin >> n;
+        
+        int a[n];
+        
+        //adding elements to the array
+        for(int i =0;i<n;i++){
+            cin >> a[i];            
+        }
+        Solution obj;
+        //calling trappingWater() function
+        cout << obj.trappingWater(a, n) << endl;
+        
+    }
+    
+    return 0;
+}
+
+
+
+# Method 2: TC: o(n), SC: o(1)
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution{
+
+    // Function to find the trapped water between the blocks.
+    public:
+    long long trappingWater(int arr[], int n){
+        long long ans=0;
+        int i=0, j=n-1;
+        int left_max=0, right_max=0;
+        
+        while(i<j)
+        {
+            left_max=max(left_max, arr[i]);
+            
+            right_max=max(right_max, arr[j]);
+            if(left_max<right_max)
+            {
+                ans+=(left_max-arr[i]);
+                i++;
+            }
+            else{
+                ans+=(right_max-arr[j]);
+                j--;
+            }
+        }
+        return ans;
+    }
+};
+
+int main(){
+    
+    int t;
+    //testcases
+    cin >> t;
+    
+    while(t--){
+        int n;
+        
+        //size of array
+        cin >> n;
+        
+        int a[n];
+        
+        //adding elements to the array
+        for(int i =0;i<n;i++){
+            cin >> a[i];            
+        }
+        Solution obj;
+        //calling trappingWater() function
+        cout << obj.trappingWater(a, n) << endl;
+        
+    }
+    
+    return 0;
+}
