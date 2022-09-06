@@ -1,0 +1,49 @@
+# Method 1:
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> factorial(int N){
+        vector<int> s;
+        int i,j,t;
+        s.push_back(1);
+        int carry;
+       for(i=2;i<=N;i++)
+       {
+           carry=0;
+           for(j=0;j<s.size();j++)
+           {
+               t=i*s[j];
+               s[j]=(t+carry)%10;
+               carry=(carry+t)/10;
+           }
+           while(carry)
+           {
+               s.push_back(carry%10);
+               carry/=10;
+           }
+           
+       }
+       reverse(s.begin(),s.end());
+       return s;
+    }
+};
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N;
+        cin >> N;
+        Solution ob;
+        vector<int> result = ob.factorial(N);
+        for (int i = 0; i < result.size(); ++i){
+            cout<< result[i];
+        }
+        cout << endl;
+    }
+    return 0;
+}
